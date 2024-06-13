@@ -91,7 +91,7 @@ namespace MVCheckBundle.Standard {
                 return new Issue(GetTemplate("Warning More"), beatmap, label, value, lowerBound).ForDifficulties(interpretation);
             }
 
-            if (lowerBound > value && upperBound < value) {
+            if (lowerBound > value || upperBound < value) {
                 return new Issue(GetTemplate("Warning Between"), beatmap, label, value, lowerBound, upperBound).ForDifficulties(interpretation);
             }
 
