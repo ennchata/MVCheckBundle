@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="MapsetParser">
+      <HintPath>..\..\..\..\..\Program Files\Mapset Verifier\resources\app\api\win-x86\MapsetParser.dll</HintPath>
+    </Reference>
+    <Reference Include="MapsetVerifierFramework">
+      <HintPath>..\..\..\..\..\Program Files\Mapset Verifier\resources\app\api\win-x86\MapsetVerifierFramework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="General\" />
+    <Folder Include="Standard\" />
+  </ItemGroup>
+
+</Project>
