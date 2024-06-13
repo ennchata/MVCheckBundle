@@ -21,7 +21,7 @@ namespace MVCheckBundle.Standard {
                 { "Reasoning", @"
                                 In case the mapper (or you) forgot to change settings after copying another difficulty or accidentally touched a control slider. 
                                 <note>Note that mappers can intentionally pick out of range values according to map design (especially
-                                for Insane and above), make sure to use your own judgement before pointing any warnings out.</note>
+                                for Insane difficulties and above), make sure to use your own judgement before pointing any warnings out.</note>
 
 		                        <h3>Guidelines overview (minimum - maximum)</h3>
 
@@ -46,21 +46,21 @@ namespace MVCheckBundle.Standard {
                 new IssueTemplate(Issue.Level.Warning,
                     "{0} is set to {1}. Guidelines recommend this value to be between {2} and {3}, ensure this makes sense.",
                     "difficulty setting", "value", "recommended minimum", "recommended maximum")
-                .WithCause("Current value is outside the range recommended by the Ranking Criteria.")
+                .WithCause("Value is outside the range recommended by the Ranking Criteria.")
             },
             {
                 "Warning Less",
                 new IssueTemplate(Issue.Level.Warning,
                     "{0} is set to {1}. Guidelines recommend this value to be less than {2}, ensure this makes sense.",
                     "difficulty setting", "value", "recommended maximum")
-                .WithCause("Current value is above the maximum recommended by the Ranking Criteria.")
+                .WithCause("Value is above the maximum recommended by the Ranking Criteria.")
             },
             {
                 "Warning More",
                 new IssueTemplate(Issue.Level.Warning,
                     "{0} is set to {1}. Guidelines recommend this value to be more than {2}, ensure this makes sense.",
                     "difficulty setting", "value", "recommended minimum")
-                .WithCause("Current value is below the minimum recommended by the Ranking Criteria.")
+                .WithCause("Value is below the minimum recommended by the Ranking Criteria.")
             }
         };
         
@@ -92,7 +92,7 @@ namespace MVCheckBundle.Standard {
                 return new Issue(GetTemplate("Warning More"), beatmap, label, value, lowerBound).ForDifficulties(interpretation);
             }
 
-            if (lowerBound > value || upperBound < value) {
+            if (lowerBound != -1 && upperBound != -1 && (lowerBound > value || upperBound < value)) {
                 return new Issue(GetTemplate("Warning Between"), beatmap, label, value, lowerBound, upperBound).ForDifficulties(interpretation);
             }
 
@@ -102,7 +102,7 @@ namespace MVCheckBundle.Standard {
         private string GenerateDocumentation() {
             string result = "";
 
-            foreach(Beatmap.Difficulty difficulty in Constants.AllDifficulties) {
+            foreach (Beatmap.Difficulty difficulty in Constants.AllDifficulties) {
                 result += $"<tr><td>{Enum.GetName(typeof(Beatmap.Difficulty), difficulty)}</td>";
                 result += $"<td>{ParseBoundary(Constants.CsGuidelines[difficulty][0])} - {ParseBoundary(Constants.CsGuidelines[difficulty][1])}</td>";
                 result += $"<td>{ParseBoundary(Constants.ArGuidelines[difficulty][0])} - {ParseBoundary(Constants.ArGuidelines[difficulty][1])}</td>";

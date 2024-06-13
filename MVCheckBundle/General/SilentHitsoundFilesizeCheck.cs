@@ -21,8 +21,8 @@ namespace MVCheckBundle.General {
                 { "Purpose", "Ensuring silent hitsounds use the 44-byte sample prescribed by the Ranking Criteria." },
                 { "Reasoning", @"
                                 The Ranking Criteria dictates usage of <a href=""https://up.ppy.sh/files/blank.wav"">this blank sample</a> for silent hitsounds.
-                                This check ensures any blank samples are 44 bytes in size.
                                 <note>Other files have unnecessarily large file sizes, and 0-byte files do not function.</note>
+                                This check reports any blank hitsound files that are not 44 bytes in file size.
                 " }
             }
         };
@@ -31,8 +31,8 @@ namespace MVCheckBundle.General {
             {
                 "Problem",
                 new IssueTemplate(Issue.Level.Problem,
-                    "\"{0}\" is silent while being {1} bytes in filesize.", "file name", "file size"
-                ).WithCause("Current silent hitsound file is unnecessarily large.")
+                    "\"{0}\" is silent while being {1} bytes in file size.", "file name", "file size"
+                ).WithCause("A blank hitsound file is unnecessarily large.")
             },
             {
                 "Error",
@@ -59,7 +59,7 @@ namespace MVCheckBundle.General {
 
                 if (exceptionIssue != null) {
                     yield return exceptionIssue;
-                } else if (fileInfo.Length != 44 || peaks.Sum(peak => peak.Sum()) == 0) { // thanks naxess
+                } else if (fileInfo.Length != 44 && (!(peaks.Count > 0) || !(peaks.Sum(peak => peak.Sum()) > 0))) { // thanks naxess
                     yield return new Issue(GetTemplate("Problem"), null, hitsoundFile, fileInfo.Length);
                 }
             }
