@@ -10,11 +10,10 @@ using MapsetVerifierFramework.objects.resources;
 using System.Linq;
 
 namespace MVCheckBundle.General {
+
     [Check]
-    public class SilentHitsoundFilesizeCheck : GeneralCheck
-    {
-        public override CheckMetadata GetMetadata() => new CheckMetadata()
-        {
+    public class SilentHitsoundFilesizeCheck : GeneralCheck {
+        public override CheckMetadata GetMetadata() => new CheckMetadata() {
             Category = "Audio",
             Message = "Silent hitsounds more than 44 bytes in size.",
             Author = "enneya",

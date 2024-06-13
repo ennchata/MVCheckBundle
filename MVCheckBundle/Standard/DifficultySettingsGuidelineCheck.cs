@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 
 namespace MVCheckBundle.Standard {
+
     [Check]
     public class DifficultySettingsGuidelineCheck : BeatmapCheck {
         public override CheckMetadata GetMetadata() => new BeatmapCheckMetadata {
